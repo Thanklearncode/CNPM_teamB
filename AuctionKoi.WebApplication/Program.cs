@@ -8,8 +8,12 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 //DI
 builder.Services.AddDbContext<AuctionKoiContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")); });
+//DI Repository
 builder.Services.AddScoped<iAuctionRepository, AuctionRepository>(); 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+//DI Service
 builder.Services.AddScoped<iAuctionService, AuctionService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
