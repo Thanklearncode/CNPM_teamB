@@ -99,6 +99,8 @@ public partial class AuctionKoiContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.ImageUrl).HasMaxLength(255);
             entity.Property(e => e.KoiName).HasMaxLength(100);
+            entity.Property(e => e.KoiSex).HasMaxLength(10);
+            entity.Property(e => e.Length).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.OwnerId).HasColumnName("OwnerID");
 
             entity.HasOne(d => d.Owner).WithMany(p => p.KoiFishes)

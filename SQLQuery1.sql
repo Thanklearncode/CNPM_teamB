@@ -61,6 +61,10 @@ CREATE TABLE TransactionHistory (
     TotalAmount DECIMAL(18,2),
     TransactionDate DATETIME DEFAULT GETDATE()
 );
+ALTER TABLE KoiFish
+    ADD Length DECIMAL(5,2),
+	KoiSex NVARCHAR(10); 
+
 
 INSERT INTO Roles (RoleName) VALUES 
 ('Guest'),
