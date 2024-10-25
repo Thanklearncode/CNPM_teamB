@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionKoi.Service", "AuctionKoi.Service\AuctionKoi.Service.csproj", "{084418D3-EE43-45D7-AC1E-40239C777EE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionKoi.WebApplication", "AuctionKoi.WebApplication\AuctionKoi.WebApplication.csproj", "{9AF5F347-DF18-46CB-BF95-55DF555BB21D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuctionKoi.Repositories", "AuctionKoi.Repositories\AuctionKoi.Repositories.csproj", "{E843AA94-360B-43CF-83F6-76D16410EE27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionKoi.Services", "AuctionKoi.Services\AuctionKoi.Services.csproj", "{8067BD9A-C252-4EF6-AEF2-53010BAA51AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionKoi.WebApplication", "AuctionKoi.WebApplication\AuctionKoi.WebApplication.csproj", "{6E54C21E-06CF-4A8D-A408-09B6D90DC29D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionKoi.Repositories", "AuctionKoi.Repositories\AuctionKoi.Repositories.csproj", "{774D1BA5-91EE-4171-A408-460CABA8C963}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,23 +15,23 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{084418D3-EE43-45D7-AC1E-40239C777EE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{084418D3-EE43-45D7-AC1E-40239C777EE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{084418D3-EE43-45D7-AC1E-40239C777EE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{084418D3-EE43-45D7-AC1E-40239C777EE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E843AA94-360B-43CF-83F6-76D16410EE27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E843AA94-360B-43CF-83F6-76D16410EE27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E843AA94-360B-43CF-83F6-76D16410EE27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E843AA94-360B-43CF-83F6-76D16410EE27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6E54C21E-06CF-4A8D-A408-09B6D90DC29D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6E54C21E-06CF-4A8D-A408-09B6D90DC29D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6E54C21E-06CF-4A8D-A408-09B6D90DC29D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6E54C21E-06CF-4A8D-A408-09B6D90DC29D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF5F347-DF18-46CB-BF95-55DF555BB21D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF5F347-DF18-46CB-BF95-55DF555BB21D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF5F347-DF18-46CB-BF95-55DF555BB21D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF5F347-DF18-46CB-BF95-55DF555BB21D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8067BD9A-C252-4EF6-AEF2-53010BAA51AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8067BD9A-C252-4EF6-AEF2-53010BAA51AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8067BD9A-C252-4EF6-AEF2-53010BAA51AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8067BD9A-C252-4EF6-AEF2-53010BAA51AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{774D1BA5-91EE-4171-A408-460CABA8C963}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{774D1BA5-91EE-4171-A408-460CABA8C963}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{774D1BA5-91EE-4171-A408-460CABA8C963}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{774D1BA5-91EE-4171-A408-460CABA8C963}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {266152C0-207F-4864-9D79-ACD64AE57C72}
+		SolutionGuid = {D7910B7D-E18C-42EB-975B-05C332DBEE5E}
 	EndGlobalSection
 EndGlobal
