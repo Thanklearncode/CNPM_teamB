@@ -19,6 +19,10 @@ public partial class KoiFish
 
     public int? OwnerId { get; set; }
 
+    public decimal? Length { get; set; }
+
+    public string? KoiSex { get; set; }
+
     public virtual ICollection<Auction> Auctions { get; set; } = new List<Auction>();
 
     public virtual User? Owner { get; set; }
