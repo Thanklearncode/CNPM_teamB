@@ -13,7 +13,8 @@ Hệ thống đấu giá cá Koi trực tuyến được phát triển bởi nh�
 - **Thành viên 3**: Võ Ngọc Lượng [GitHub](https://github.com/Luong1801)
 - **Thành viên 4**: Trương Công Lý [GitHub](https://github.com/TCLy3005)
 - **Thành viên 5**: Lê Duy Mạnh  [GitHub](https://github.com/Leduymanhdu)
-- **Thành viên 6**: Nguyễn Thành Tiếp
+- **Thành viên 6**: Nguyễn Thành Tiếp [GitHub](https://github.com/NguyenThanhTiep)
+
 
 ## 📝 Mô tả dự án
 ### Giới thiệu
