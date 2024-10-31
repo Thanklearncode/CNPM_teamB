@@ -72,3 +72,61 @@ INSERT INTO Roles (RoleName) VALUES
 ('Koi Breeder'),
 ('Staff'),
 ('Manager');
+
+SET IDENTITY_INSERT dbo.Auctions ON;
+
+INSERT INTO dbo.Auctions (AuctionID, KoiID, StartTime, EndTime, StartPrice, Status)
+VALUES 
+(1, 101, '2024-10-30 09:00:00', '2024-10-31 18:00:00', 5000000, 'Open'),
+(2, 102, '2024-10-29 10:00:00', '2024-11-01 17:00:00', 10000000, 'Closed'),
+(3, 103, '2024-10-28 11:00:00', '2024-10-30 16:00:00', 7500000, 'Open');
+
+SET IDENTITY_INSERT dbo.Auctions OFF;
+
+SET IDENTITY_INSERT dbo.KoiFish ON;
+
+INSERT INTO dbo.KoiFish (KoiId, KoiName, Age, Breed, Description, ImageUrl, OwnerId, Length, KoiSex)
+VALUES 
+(101, 'Satsuki', 3, 'Kohaku', 'Koi trắng với đốm đỏ đẹp mắt', 'http://example.com/satsuki.jpg', 501, 35.5, 'Female'),
+(102, 'Mizu', 4, 'Sanke', 'Koi ba màu nổi bật', 'http://example.com/mizu.jpg', 502, 40.2, 'Male'),
+(103, 'Hoshi', 2, 'Showa', 'Koi đen với đốm đỏ và trắng', 'http://example.com/hoshi.jpg', 503, 38.0, 'Female');
+
+SET IDENTITY_INSERT dbo.KoiFish OFF;
+
+SET IDENTITY_INSERT dbo.Users ON;
+INSERT INTO dbo.Users (UserId, Username, PasswordHash, FullName, Email, PhoneNumber, RoleId, CreatedAt)
+VALUES 
+(501, 'thanh', '1', 'Người dùng Một', 'user1@example.com', '0123456789', 1, GETDATE()),
+(502, 'user2', 'hashpassword2', 'Người dùng Hai', 'user2@example.com', '0987654321', 2, GETDATE()),
+(503, 'user3', 'hashpassword3', 'Người dùng Ba', 'user3@example.com', '0112233445', 1, GETDATE());
+SET IDENTITY_INSERT dbo.Users OFF;
+
+SET IDENTITY_INSERT dbo.Bids ON;
+
+INSERT INTO dbo.Bids (BidId, AuctionId, UserId, BidAmount, BidTime)
+VALUES 
+(1, 1, 501, 1100.00, GETDATE()),  
+(2, 1, 502, 1150.00, GETDATE()),  
+(3, 2, 503, 1600.00, GETDATE()),  
+(4, 3, 501, 2100.00, GETDATE());  
+
+SET IDENTITY_INSERT dbo.Bids OFF;
+
+
+SET IDENTITY_INSERT dbo.Employees ON;
+
+INSERT INTO dbo.Employees (EmployeeId, UserId, Position, HireDate)
+VALUES 
+(1, 501, 'Quản lý', GETDATE()),
+(2, 502, 'Nhân viên bán hàng', GETDATE());
+
+SET IDENTITY_INSERT dbo.Employees OFF;
+
+SET IDENTITY_INSERT dbo.TransactionHistory ON;
+INSERT INTO dbo.TransactionHistory (TransactionId, AuctionId, BuyerId, TotalAmount, TransactionDate)
+VALUES 
+(1, 1, 501, 1500.00, GETDATE()),
+(2, 2, 502, 2000.00, GETDATE()),
+(3, 3, 503, 1800.00, GETDATE());
+
+SET IDENTITY_INSERT dbo.TransactionHistory OFF;
