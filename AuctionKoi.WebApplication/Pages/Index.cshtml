@@ -1,10 +1,38 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero-section flex items-center justify-center text-white">
+    <div class="text-center">
+        <h1 class="text-6xl font-bold mb-4 text-yellow-400">Premium Koi Auctions</h1>
+        <p class="text-2xl mb-8">Discover the finest Koi fish from top Japanese breeders</p>
+        <button class="gradient-button px-8 py-4 rounded-full text-white text-lg font-medium shadow-lg">
+            View Auctions
+        </button>
+    </div>
+</section>
+
+<!-- Featured Brands -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Featured Breeders</h2>
+        <p class="text-center text-gray-600 mb-12">Expert breeders with generations of experience</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <!-- Add your brand cards here -->
+        </div>
+    </div>
+</section>
+
+<!-- Live Auctions -->
+<section class="py-16 bg-gradient-to-b from-white to-gray-100">
+    <div class="container mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Live Auctions</h2>
+        <p class="text-center text-gray-600 mb-12">Bid on exceptional Koi specimens</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Add your auction cards here -->
+        </div>
+    </div>
+</section>

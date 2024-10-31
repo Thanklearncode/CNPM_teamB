@@ -16,17 +16,10 @@ namespace AuctionKoi.Repositories.Repositories
             _dbContext = dbContext;
         }
 
-        public bool AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
-            try
-            {
-                _dbContext.Users.Add(user);
-                _dbContext.SaveChanges();
-                return true;
-            }
-            catch (Exception ex) {
-                throw new NotImplementedException();
-            }
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
         }
 
         public bool DelUser(int id)
@@ -66,10 +59,17 @@ namespace AuctionKoi.Repositories.Repositories
             return await _dbContext.Users.ToListAsync();
         }
 
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<User> GetUserById(int id)
         {
             return await _dbContext.Users.Where(p=>p.UserId.Equals(id)).FirstOrDefaultAsync();
         }
+
+       
 
         public bool UpdateUser(User user)
         {

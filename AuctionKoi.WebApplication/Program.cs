@@ -6,6 +6,12 @@ using AuctionKoi.Services.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+});
+
 //DI
 builder.Services.AddDbContext<AuctionKoiContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DbContext")); });
 //DI Repository
@@ -28,8 +34,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 

@@ -12,8 +12,10 @@ namespace AuctionKoi.Services.Interfaces
         Task<List<User>> Users();
         Boolean DelUser(int id);
         Boolean DelUser(User user);
-        Boolean AddUser(User user);
+        Task RegisterUserAsync(string fullName, string email, string phoneNumber, string password);
         Boolean UpdateUser(User user);
         Task<User> GetUserById(int id);
+        User Authenticate(string Email, string PasswordHash);
+        Task<bool> ValidateUserAsync(string email, string password);
     }
 }
