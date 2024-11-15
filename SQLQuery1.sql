@@ -130,3 +130,25 @@ VALUES
 (3, 3, 503, 1800.00, GETDATE());
 
 SET IDENTITY_INSERT dbo.TransactionHistory OFF;
+-- 1. Thêm các trường mới vào bảng Auctions
+ALTER TABLE dbo.Auctions
+ADD CurrentPrice DECIMAL(18, 2) NULL,  -- Thêm trường để lưu giá hiện tại cho đấu giá lên hoặc đấu giá xuống
+    WinnerId INT NULL;                 -- Thêm trường để lưu ID người chiến thắng phiên đấu giá
+
+-- 2. Thiết lập WinnerId làm khóa ngoại tham chiếu tới bảng Users
+ALTER TABLE dbo.Auctions
+ADD CONSTRAINT FK_Auctions_WinnerId FOREIGN KEY (WinnerId) REFERENCES dbo.Users(UserId);
+
+-- 3. Thêm trường AuctionType vào bảng TransactionHistory
+ALTER TABLE dbo.TransactionHistory
+ADD AuctionType NVARCHAR(50) NULL;  -- Thêm trường để lưu loại đấu giá cho từng giao dịch
+
+-- 4. Thêm CHECK CONSTRAINT cho trường Status trong bảng Auctions
+ALTER TABLE dbo.Auctions
+ADD CONSTRAINT CHK_Auctions_Status CHECK (Status IN ('OPEN', 'CLOSED', 'COMPLETED', 'CANCELLED'));
+
+-- 5. Cập nhật giá trị mặc định cho CurrentPrice từ StartPrice
+UPDATE dbo.Auctions
+SET CurrentPrice = StartPrice
+WHERE CurrentPrice IS NULL;
+
