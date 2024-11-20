@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoiAuction - Premium Koi Fish Auctions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+   
+    <style>
+        :root {
+            --primary: #FF4B3E;
+            --secondary: #254D7E;
+            --accent: #FFB400;
+            --background: #F5F5F5;
+            --dark: #2C3E50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(37, 77, 126, 0.8), rgba(44, 62, 80, 0.8)),
+                        url('/api/placeholder/1920/1080') center/cover;
+            height: 80vh;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .brand-card {
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+        }
+
+        .nav-menu {
+            background: linear-gradient(90deg, var(--secondary), var(--dark));
+        }
+
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: -100%;
+            background-color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
+        .auction-card {
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .auction-card:hover {
+            transform: scale(1.02);
+            border-color: var(--accent);
+        }
+
+        .gradient-button {
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            transition: all 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            transform: translateY(-2px);
+        }
+
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navigation Bar -->
+    <nav class="fixed w-full z-50 nav-menu text-white">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="../Front_End/anh/image.png" alt="KoiAuction Logo" class="h-10 rounded-full border-2 border-yellow-400">
+                    <span class="ml-3 text-2xl font-bold text-white">KoiAuction</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="menu-item text-lg font-medium">Home</a>
+                    <a href="../Front_End/Login/login_AUC.html" class="menu-item text-lg font-medium">Auctions</a>
+                    <a href="..//Front_End/about.html" class="menu-item text-lg font-medium">About</a>
+                    <a href="#" class="menu-item text-lg font-medium">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <a href="Login/login.html">
+                        <button class="px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-gray-800 transition-all">
+                            Login
+                        </button>
+                    </a>
+                    <a href="Login/register.html">
+                        <button class="px-6 py-2 bg-yellow-500 text-gray-800 rounded-full hover:bg-yellow-400 transition-all">
+                            Register
+                        </button>
+                    </a>                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center text-white">
+        <div class="text-center">
+            <h1 class="text-6xl font-bold mb-4 text-yellow-400">Premium Koi Auctions</h1>
+            <p class="text-2xl mb-8">Discover the finest Koi fish from top Japanese breeders</p>
+            <button class="gradient-button px-8 py-4 rounded-full text-white text-lg font-medium shadow-lg">
+                View Auctions
+            </button>
+        </div>
+    </section>
+
+    <!-- Featured Brands -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Featured Breeders</h2>
+            <p class="text-center text-gray-600 mb-12">Expert breeders with generations of experience</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                    <img src="../Front_End/anh/dainichi-logo.png" alt="Dainichi" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-gray-800">Dainichi</h3>
+                </div>
+                <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                    <img src="../Front_End/anh/izumiya-logo.png" alt="Sakai" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-gray-800">Sakai</h3>
+                </div>
+                <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                    <img src="../Front_End/anh/marudo-logo.png" alt="Marudo" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-gray-800">Marudo</h3>
+                </div>
+                <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                    <img src="../Front_End/anh/kanno-logo.png" alt="Kanno" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                    <h3 class="text-xl font-semibold text-gray-800">Kanno</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Auctions -->
+    <section class="py-16 bg-gradient-to-b from-white to-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Live Auctions</h2>
+            <p class="text-center text-gray-600 mb-12">Bid on exceptional Koi specimens</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="auction-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="../Front_End/anh/a1.jpg" alt="Koi Fish" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-yellow-400 text-gray-800 px-4 py-1 rounded-full font-medium">
+                            Featured
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Premium Kohaku Koi</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-600">Current Bid</span>
+                            <span class="text-2xl font-bold text-red-500">$2,500</span>
+                        </div>
+                        <button class="gradient-button w-full py-3 text-white rounded-full">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="auction-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="../Front_End/anh/a2.jpg" alt="Koi Fish" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-blue-500 text-white px-4 py-1 rounded-full font-medium">
+                            New
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Showa Sanshoku</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-600">Current Bid</span>
+                            <span class="text-2xl font-bold text-red-500">$3,200</span>
+                        </div>
+                        <button class="gradient-button w-full py-3 text-white rounded-full">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+
+                <div class="auction-card bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="relative">
+                        <img src="../Front_End/anh/a3.jpg" alt="Koi Fish" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-4 py-1 rounded-full font-medium">
+                            Hot
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Taisho Sanshoku</h3>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-gray-600">Current Bid</span>
+                            <span class="text-2xl font-bold text-red-500">$1,800</span>
+                        </div>
+                        <button class="gradient-button w-full py-3 text-white rounded-full">
+                            Place Bid
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-yellow-400">About Us</h4>
+                    <p class="text-gray-400">Premium Koi fish auctions platform connecting collectors with top Japanese breeders.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-yellow-400">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Auctions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-yellow-400">Contact</h4>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>Email: 123@gmail.com</li>
+                        <li>Phone: 123-456</li>
+                        <li>Address: TP.HCM, Việt Nam</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xl font-semibold mb-4 text-yellow-400">Newsletter</h4>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Enter your email" 
+                               class="w-full px-4 py-2 rounded-full bg-gray-800 text-white border border-gray-700 focus:border-yellow-400 focus:outline-none">
+                        <button class="gradient-button w-full px-4 py-2 text-white rounded-full">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 KoiAuction. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
