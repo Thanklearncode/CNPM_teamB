@@ -1,0 +1,58 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ABid.AddAuctionModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Thêm Trận Đấu Giá</h2>
+            <p class="pageheader-text">Thêm một trận đấu giá mới cho cá Koi.</p>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">@TempData["Message"]</div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+
+        <div class="card">
+            <h5 class="card-header">Thêm Trận Đấu Giá</h5>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="KoiID">ID Cá Koi</label>
+                        <input type="number" name="Auction.KoiID" id="KoiID" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="StartPrice">Giá Khởi Điểm</label>
+                        <input type="number" step="0.01" name="Auction.StartPrice" id="StartPrice" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="StartTime">Thời Gian Bắt Đầu</label>
+                        <input type="datetime-local" name="Auction.StartTime" id="StartTime" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="EndTime">Thời Gian Kết Thúc</label>
+                        <input type="datetime-local" name="Auction.EndTime" id="EndTime" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Method">Phương Thức</label>
+                        <select name="Auction.Method" id="Method" class="form-control" required>
+                            <option value="Fixed Price">Fixed Price</option>
+                            <option value="One-Time Bid">One-Time Bid</option>
+                            <option value="Ascending Bid">Ascending Bid</option>
+                            <option value="Descending Bid">Descending Bid</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm Trận Đấu Giá</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

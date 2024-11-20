@@ -1,69 +1,89 @@
 ﻿using AuctionKoi.Repositories.Entities;
 using AuctionKoi.Repositories.Interfaces;
-using AuctionKoi.Repositories.Repositories;
 using AuctionKoi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AuctionKoi.Services.Services
 {
     public class UserService : IUserService
     {
-        private readonly AuctionKoiContext _context;
         private readonly IUserRepository _repository;
 
-        public UserService(AuctionKoiContext context, IUserRepository userRepository)
+        public UserService(IUserRepository repository)
         {
-            _context = context;
-            _repository = userRepository;
+            _repository = repository;
         }
 
-        public async Task RegisterUserAsync(string fullName, string email, string phoneNumber, string password)
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            var newUser = new User
+            return await _repository.GetAllUsersAsync();
+        }
+
+        public async Task AddUserAsync(User user)
+        {
+            if (string.IsNullOrEmpty(user.Email) || string.IsNullOrEmpty(user.FullName))
             {
+                throw new ArgumentException("Email và Họ và Tên không được để trống.");
+            }
+
+            await _repository.AddUserAsync(user);
+        }
+
+        public async Task AddCustomerAsync(string username, string fullName, string email, string phoneNumber, string password, int roleID)
+        {
+            var newCustomer = new User
+            {
+                Username = username, // Gán Username từ tham số
                 FullName = fullName,
                 Email = email,
                 PhoneNumber = phoneNumber,
-                PasswordHash = password,  // Lưu mật khẩu trực tiếp hoặc mã hóa nếu cần
-                Username = fullName,      // Gán Username bằng FullName
-                RoleId = 1                // Gán RoleId là 1 theo yêu cầu
+                PasswordHash = password,
+                RoleID = roleID,
+                CreatedAt = DateTime.Now
             };
 
-            await _repository.AddUserAsync(newUser);
+            await _repository.AddUserAsync(newCustomer);
         }
+
+
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            if (id <= 0)
+            {
+                throw new ArgumentException("ID không hợp lệ.");
+            }
+
+            return await _repository.DeleteUserAsync(id);
+        }
+
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            return await _repository.GetUserByIdAsync(id);
+        }
+
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            if (user == null || user.UserID <= 0 || string.IsNullOrEmpty(user.Email))
+            {
+                throw new ArgumentException("Thông tin khách hàng không hợp lệ.");
+            }
+
+            return await _repository.UpdateUserAsync(user);
+        }
+
 
         public User Authenticate(string email, string password)
         {
-            // Tìm kiếm người dùng bằng email
-            var user = _context.Users.SingleOrDefault(u => u.Email == email);
+            var user = _repository.GetUserByEmailAsync(email).Result;
 
-            // Kiểm tra mật khẩu
-            if (user == null || user.PasswordHash != password) // So sánh trực tiếp
+            if (user == null || user.PasswordHash != password)
             {
-                return null; // Người dùng không hợp lệ
+                return null;
             }
 
-            return user; // Đăng nhập thành công
-        }
-
-
-        public bool DelUser(int id)
-        {
-            return _repository.DelUser(id);
-        }
-
-        public bool DelUser(User user)
-        {
-            return _repository.DelUser(user);
-        }
-
-        public Task<User> GetUserById(int id)
-        {
-            return _repository.GetUserById(id);
+            return user;
         }
 
         public async Task<bool> ValidateUserAsync(string email, string password)
@@ -71,18 +91,22 @@ namespace AuctionKoi.Services.Services
             var user = await _repository.GetUserByEmailAsync(email);
             if (user == null) return false;
 
-            // So sánh trực tiếp mật khẩu
             return user.PasswordHash == password;
         }
-
-        public bool UpdateUser(User user)
+        public async Task RegisterUserAsync(string fullName, string email, string phoneNumber, string password)
         {
-            return _repository.UpdateUser(user);
-        }
+            var newUser = new User
+            {
+                FullName = fullName,
+                Email = email,
+                PhoneNumber = phoneNumber,
+                PasswordHash = password,
+                Username = fullName,  // Username mặc định là FullName
+                RoleID = 2,           // Mặc định RoleID là 2
+                CreatedAt = DateTime.Now
+            };
 
-        public Task<List<User>> Users()
-        {
-            return _repository.GetAllUser();
+            await _repository.AddUserAsync(newUser);
         }
     }
 }

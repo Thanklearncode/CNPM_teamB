@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoiAuction - Premium Koi Fish Auctions</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/_LayoutUserPage.css" asp-append-version="true" />
+    @RenderSection("PageSpecificStyles", required: false)
+</head>
+<body class="bg-gray-50">
+    <!-- Top Navigation Bar -->
+    <nav class="fixed w-full z-50 nav-menu text-white">
+        <div class="container mx-auto px-6 py-4">
+
+
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="../anh/image.png" alt="KoiAuction Logo" class="h-10 rounded-full border-2 border-yellow-400">
+                    <span class="ml-3 text-2xl font-bold text-white">KoiAuction</span>
+                </div>
+
+
+                <div class="manh hidden md:flex items-center space-x-8">
+                    <a asp-page="../UserPage/Home" class="menu-item text-lg font-medium">Home</a>
+                    <a asp-page="../UserPage/Auction" class="menu-item text-lg font-medium">Auctions</a>
+                    <a href="../about.html" class="menu-item text-lg font-medium">About</a>
+                    <a href="../contact/contact.html" class="menu-item text-lg font-medium">Contact</a>
+                    <a href="#" class="menu-item text-lg font-medium">History</a>
+                </div>
+
+                <!-- user -->
+                <div class="user relative">
+                    <i class="fa fa-user absolute" aria-hidden="true"></i>
+                    <div class="manh">
+                        <div class="vongtron absolute"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="main">@RenderBody()</div>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            <!-- About Us -->
+            <div>
+                <h4 class="text-xl font-semibold mb-4 text-yellow-400">About Us</h4>
+                <p class="text-gray-400">Premium Koi fish auctions platform connecting collectors with top Japanese breeders.</p>
+            </div>
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-xl font-semibold mb-4 text-yellow-400">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Auctions</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                </ul>
+            </div>
+            <!-- Contact -->
+            <div>
+                <h4 class="text-xl font-semibold mb-4 text-yellow-400">Contact</h4>
+                <ul class="text-gray-400 space-y-2">
+                    <li>Email: 123@gmail.com</li>
+                    <li>Phone: 123-456</li>
+                    <li>Address: TP.HCM, Việt Nam</li>
+                </ul>
+            </div>
+            <!-- Newsletter -->
+            <div>
+                <h4 class="text-xl font-semibold mb-4 text-yellow-400">Newsletter</h4>
+                <form>
+                    <input type="email" placeholder="Enter your email"
+                        class="w-full px-4 py-2 rounded-full bg-gray-800 text-white border border-gray-700 focus:border-yellow-400 focus:outline-none">
+                    <button class="gradient-button w-full px-4 py-2 text-white rounded-full mt-4">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>© 2024 KoiAuction. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+
+</body>
+</html>

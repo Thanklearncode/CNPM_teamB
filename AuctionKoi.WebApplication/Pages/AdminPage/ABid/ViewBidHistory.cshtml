@@ -1,0 +1,43 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ABid.ViewBidHistoryModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Lịch Sử Đấu Giá</h2>
+            <p class="pageheader-text">Danh sách các lượt đấu giá của người dùng.</p>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Lịch Sử Đấu Giá</h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Bid ID</th>
+                            <th>Người Dùng</th>
+                            <th>Giá Đấu</th>
+                            <th>Thời Gian</th>
+                            <th>Trận Đấu Giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bid in Model.Bids)
+                        {
+                            <tr>
+                                <td>@bid.BidID</td>
+                                <td>@bid.UserID</td>
+                                <td>@bid.BidAmount</td>
+                                <td>@(bid.BidTime.HasValue ? bid.BidTime.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")</td>
+                                <td>@bid.AuctionID</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

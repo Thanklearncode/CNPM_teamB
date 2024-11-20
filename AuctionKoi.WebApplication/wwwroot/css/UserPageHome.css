@@ -1,0 +1,101 @@
+﻿/* Hero section, thẻ tìm kiếm và nội dung trang */
+.hero-section {
+    background: linear-gradient(rgba(37, 77, 126, 0.8), rgba(44, 62, 80, 0.8)), url('/api/placeholder/1920/1080') center/cover;
+    height: 80vh;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+}
+
+.search-box {
+    position: relative;
+    width: 300px;
+}
+
+.search-input {
+    color: #254D7E;
+    z-index: 1;
+    width: 100%;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 2px solid #ddd;
+    outline: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+    .search-input:focus {
+        border-color: #4CAF50;
+        box-shadow: 0px 0px 10px rgba(76, 175, 80, 0.2);
+    }
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .search-button:hover {
+        background-color: #45a049;
+    }
+
+    .search-button img {
+        width: 18px;
+        height: 18px;
+    }
+
+/* Auction items */
+.auction-card {
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+    .auction-card:hover {
+        transform: scale(1.02);
+        border-color: var(--accent);
+    }
+
+/* Thẻ nội dung và các mục đấu giá */
+.brand-card {
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+}
+
+    .brand-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        background: linear-gradient(145deg, #f0f0f0, #ffffff);
+    }
+
+/* User icon */
+.vongtron {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.user .fa {
+    color: #FFB400;
+    top: 8px;
+    left: 12px;
+    z-index: 1;
+    font-size: 30px;
+}
+
+.user {
+    margin-top: -50px;
+    margin-right: 40px;
+}

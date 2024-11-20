@@ -1,0 +1,26 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ABid.DeleteAuctionModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Xóa Trận Đấu Giá</h2>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Xóa Trận Đấu Giá</h5>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="AuctionID">ID Trận Đấu Giá</label>
+                        <input type="number" name="AuctionID" id="AuctionID" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn btn-danger">Xóa Trận Đấu Giá</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

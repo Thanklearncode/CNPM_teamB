@@ -1,0 +1,87 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.DashboardModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <!-- Auction Method Pie Chart -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">Auction Methods</div>
+                    <div class="card-body">
+                        <canvas id="auctionMethodChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Bidded Koi -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">Top Bidded Koi</div>
+                    <div class="card-body">
+                        <canvas id="topBiddedKoiChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Winners -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">Top Winners</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Auction ID</th>
+                                    <th>Winner ID</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var winner in Model.TopWinners)
+                                {
+                                    <tr>
+                                        <td>@winner.AuctionID</td>
+                                        <td>@winner.WinnerID</td>
+                                        <td>@winner.TotalAmount</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Pie Chart
+        var auctionMethodCtx = document.getElementById('auctionMethodChart').getContext('2d');
+        var auctionMethodData = {
+            labels: @Html.Raw(Json.Serialize(Model.AuctionMethodStatistics.Keys)),
+            datasets: [{
+                data: @Html.Raw(Json.Serialize(Model.AuctionMethodStatistics.Values)),
+                backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+            }]
+        };
+        new Chart(auctionMethodCtx, { type: 'pie', data: auctionMethodData });
+
+        // Bar Chart
+        var topBiddedKoiCtx = document.getElementById('topBiddedKoiChart').getContext('2d');
+        var topBiddedKoiData = {
+            labels: @Html.Raw(Json.Serialize(Model.TopBiddedKoi.Select(k => k.AuctionID))),
+            datasets: [{
+                label: 'Bid Count',
+                data: @Html.Raw(Json.Serialize(Model.TopBiddedKoi.Select(k => k.BidCount))),
+                backgroundColor: '#4e73df'
+            }]
+        };
+        new Chart(topBiddedKoiCtx, { type: 'bar', data: topBiddedKoiData });
+    </script>
+}

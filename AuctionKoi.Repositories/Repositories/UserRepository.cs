@@ -1,10 +1,7 @@
 ﻿using AuctionKoi.Repositories.Entities;
 using AuctionKoi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AuctionKoi.Repositories.Repositories
@@ -12,7 +9,9 @@ namespace AuctionKoi.Repositories.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly AuctionKoiContext _dbContext;
-        public UserRepository(AuctionKoiContext dbContext) {
+
+        public UserRepository(AuctionKoiContext dbContext)
+        {
             _dbContext = dbContext;
         }
 
@@ -22,65 +21,47 @@ namespace AuctionKoi.Repositories.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public bool DelUser(int id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
-            try
-            {
-                var objDel = _dbContext.Users.Where(p=>p.UserId.Equals(id)).FirstOrDefault();
-                if (objDel != null) {
-                    _dbContext.Users.Remove(objDel);
-                    _dbContext.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex) {
-                throw new NotImplementedException(ex.ToString());
-            }
-            throw new NotImplementedException();
-        }
-
-        public bool DelUser(User user)
-        {
-            try
+            var user = await _dbContext.Users.FindAsync(id);
+            if (user != null)
             {
                 _dbContext.Users.Remove(user);
-                _dbContext.SaveChanges();
-                return true;
+                return await _dbContext.SaveChangesAsync() > 0;
             }
-            catch (Exception ex) {
-                throw new NotImplementedException(ex.ToString());
-                return false;
-            }
+            return false;
         }
 
-        public async Task<List<User>> GetAllUser()
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            return await _dbContext.Users.FindAsync(id);
+        }
+
+        public async Task<List<User>> GetAllUsersAsync()
         {
             return await _dbContext.Users.ToListAsync();
         }
 
+        public async Task<bool> UpdateUserAsync(User user)
+        {
+            var existingUser = await _dbContext.Users.FindAsync(user.UserID);
+            if (existingUser == null) return false;
+
+            existingUser.Username = user.Username;
+            existingUser.FullName = user.FullName;
+            existingUser.Email = user.Email;
+            existingUser.PhoneNumber = user.PhoneNumber;
+            existingUser.PasswordHash = user.PasswordHash;
+            existingUser.RoleID = user.RoleID;
+
+            _dbContext.Users.Update(existingUser);
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             return await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
-        }
-
-        public async Task<User> GetUserById(int id)
-        {
-            return await _dbContext.Users.Where(p=>p.UserId.Equals(id)).FirstOrDefaultAsync();
-        }
-
-       
-
-        public bool UpdateUser(User user)
-        {
-            try
-            {
-                _dbContext.Users.Update(user);
-                return true;
-            }
-            catch (Exception ex) {
-                return false;
-            }
         }
     }
 }

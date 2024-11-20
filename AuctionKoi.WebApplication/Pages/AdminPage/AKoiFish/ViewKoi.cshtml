@@ -1,0 +1,60 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.AKoiFish.ViewKoiModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Danh sách Cá Koi</h2>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Danh sách Cá Koi</h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên</th>
+                            <th>Giống</th>
+                            <th>Độ tuổi</th>
+                            <th>Mô tả</th>
+                            <th>Chiều dài</th>
+                            <th>Giới tính</th>
+                            <th>Chủ sở hữu</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var koi in Model.KoiFishes)
+                        {
+                            <tr>
+                                <td>@koi.KoiID</td>
+                                <td>@koi.KoiName</td>
+                                <td>@koi.Breed</td>
+                                <td>@koi.Age</td>
+                                <td>@koi.Description</td>
+                                <td>@koi.Length</td>
+                                <td>@koi.KoiSex</td>
+                                <td>@koi.OwnerID</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" asp-page="/AdminPage/AKoiFish/EditKoi" asp-route-id="@koi.KoiID">Sửa</a>
+                                    <a class="btn btn-danger btn-sm" asp-page="/AdminPage/AKoiFish/DeleteKoi" asp-route-id="@koi.KoiID">Xóa</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td colspan="8"></td>
+                            <td>
+                                <a class="btn btn-success btn-sm" asp-page="/AdminPage/AKoiFish/AddKoi">Thêm Cá</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

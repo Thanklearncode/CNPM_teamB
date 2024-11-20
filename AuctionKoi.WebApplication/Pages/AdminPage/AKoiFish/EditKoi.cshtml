@@ -1,0 +1,64 @@
+﻿@page "{id:int}"
+@model AuctionKoi.WebApplication.Pages.AdminPage.AKoiFish.EditKoiModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Sửa thông tin cá Koi</h2>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Sửa thông tin cá Koi</h5>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="KoiFish.KoiID" value="@Model.KoiFish.KoiID" />
+                    <div class="form-group">
+                        <label for="KoiName">Tên</label>
+                        <input type="text" name="KoiFish.KoiName" id="KoiName" class="form-control" value="@Model.KoiFish.KoiName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Breed">Giống</label>
+                        <input type="text" name="KoiFish.Breed" id="Breed" class="form-control" value="@Model.KoiFish.Breed" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Age">Tuổi</label>
+                        <input type="number" name="KoiFish.Age" id="Age" class="form-control" value="@Model.KoiFish.Age" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="KoiSex">Giới tính</label>
+                        <select name="KoiFish.KoiSex" id="KoiSex" class="form-control">
+                            <option value="Male" selected="@(Model.KoiFish.KoiSex == "Male" ? "selected" : "")">Nam</option>
+                            <option value="Female" selected="@(Model.KoiFish.KoiSex == "Female" ? "selected" : "")">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Length">Chiều dài (cm)</label>
+                        <input type="number" step="0.01" name="KoiFish.Length" id="Length" class="form-control" value="@Model.KoiFish.Length" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Mô tả</label>
+                        <textarea name="KoiFish.Description" id="Description" class="form-control">@Model.KoiFish.Description</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ImageUrl">Đường dẫn ảnh</label>
+                        <input type="url" name="KoiFish.ImageUrl" id="ImageUrl" class="form-control" value="@Model.KoiFish.ImageUrl" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="OwnerID">ID Chủ sở hữu</label>
+                        <input type="number" name="KoiFish.OwnerID" id="OwnerID" class="form-control" value="@Model.KoiFish.OwnerID" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+

@@ -1,0 +1,47 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ACustomer.DeleteCustomerModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Xóa khách hàng</h2>
+                    <p class="pageheader-text">Xóa thông tin khách hàng bằng User ID.</p>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Message"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="card">
+            <h5 class="card-header">Xóa khách hàng</h5>
+            <div class="card-body">
+                <form method="post" class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="UserID">User ID</label>
+                            <input type="text" class="form-control" id="UserID" name="UserID" placeholder="Nhập User ID" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" type="submit">Xóa khách hàng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.AKoiFish.AddKoiModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Thêm Cá Koi</h2>
+            <p class="pageheader-text">Nhập thông tin cá Koi để thêm vào hệ thống.</p>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Thông tin Cá Koi</h5>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="KoiName">Tên Cá Koi</label>
+                        <input type="text" name="KoiFish.KoiName" id="KoiName" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Age">Tuổi</label>
+                        <input type="number" name="KoiFish.Age" id="Age" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Breed">Giống</label>
+                        <input type="text" name="KoiFish.Breed" id="Breed" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Description">Mô tả</label>
+                        <textarea name="KoiFish.Description" id="Description" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ImageUrl">Link ảnh</label>
+                        <input type="url" name="KoiFish.ImageUrl" id="ImageUrl" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="OwnerID">ID Chủ Sở Hữu</label>
+                        <input type="number" name="KoiFish.OwnerID" id="OwnerID" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Length">Chiều dài (cm)</label>
+                        <input type="number" step="0.01" name="KoiFish.Length" id="Length" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="KoiSex">Giới tính</label>
+                        <select name="KoiFish.KoiSex" id="KoiSex" class="form-control" required>
+                            <option value="Male">Đực</option>
+                            <option value="Female">Cái</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm Cá Koi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

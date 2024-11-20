@@ -1,0 +1,74 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ACustomer.ViewCustomerModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Thông tin khách hàng</h2>
+                    <p class="pageheader-text">Danh sách khách hàng được hiển thị từ cơ sở dữ liệu.</p>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+
+        <div class="card">
+            <h5 class="card-header">Danh sách khách hàng</h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên người dùng</th>
+                            <th>Họ và Tên</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Vai trò</th>
+                            <th>Ngày tạo</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.Users)
+                        {
+                            <tr>
+                                <td>@user.UserID</td>
+                                <td>@user.Username</td>
+                                <td>@user.FullName</td>
+                                <td>@user.Email</td>
+                                <td>@user.PhoneNumber</td>
+                                <td>@(user.RoleID == 4 ? "Admin" : user.RoleID == 5 ? "Manager" : "User")</td>
+                                <td>@(user.CreatedAt.HasValue ? user.CreatedAt.Value.ToString("yyyy-MM-dd HH:mm:ss") : "N/A")</td>
+                                <td>
+                                    <!-- Nút Sửa -->
+                                    <a class="btn btn-primary btn-sm" asp-page="/AdminPage/ACustomer/EditCustomer" asp-route-id="@user.UserID">Sửa</a>
+
+                                    <!-- Nút Xóa -->
+                                    <form method="post" asp-page="/AdminPage/ACustomer/DeleteCustomer" asp-route-id="@user.UserID" style="display:inline-block;">
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Bạn có chắc muốn xóa khách hàng này không?')">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                        <!-- Dòng cho nút Thêm khách hàng -->
+                        <tr>
+                            <td colspan="7"></td>
+                            <td>
+                                <a class="btn btn-success btn-sm" asp-page="/AdminPage/ACustomer/AddCustomer">Thêm khách hàng</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

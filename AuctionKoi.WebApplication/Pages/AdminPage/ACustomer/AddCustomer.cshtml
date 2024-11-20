@@ -1,0 +1,69 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.AdminPage.ACustomer.AddCustomerModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Thêm khách hàng</h2>
+                    <p class="pageheader-text">Thêm thông tin khách hàng mới.</p>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Message"]
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <div class="card">
+            <h5 class="card-header">Thêm khách hàng mới</h5>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="Username">Tên người dùng</label>
+                        <input type="text" name="User.Username" id="Username" class="form-control" value="@Model.User?.Username" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="PasswordHash">Mật khẩu</label>
+                        <input type="password" name="User.PasswordHash" id="PasswordHash" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="FullName">Họ và Tên</label>
+                        <input type="text" name="User.FullName" id="FullName" class="form-control" value="@Model.User?.FullName" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" name="User.Email" id="Email" class="form-control" value="@Model.User?.Email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="PhoneNumber">Số điện thoại</label>
+                        <input type="text" name="User.PhoneNumber" id="PhoneNumber" class="form-control" value="@Model.User?.PhoneNumber" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="RoleID">Vai trò</label>
+                        <select name="User.RoleID" id="RoleID" class="form-control" required>
+                            <option value="2" selected="@Model.User?.RoleID == 2">User</option>
+                            <option value="4" selected="@Model.User?.RoleID == 4">Admin</option>
+                            <option value="5" selected="@Model.User?.RoleID == 5">Manager</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thêm khách hàng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

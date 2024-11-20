@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model AuctionKoi.WebApplication.Pages.AdminPage.AKoiFish.DeleteKoiModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Xóa Cá Koi</h2>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Xác nhận xóa Cá Koi</h5>
+            <div class="card-body">
+                <p>Bạn có chắc chắn muốn xóa Cá Koi này không?</p>
+                <p><strong>Tên Cá Koi:</strong> @Model.KoiFish.KoiName</p>
+                <form method="post">
+                    <button type="submit" class="btn btn-danger">Xóa</button>
+                    <a asp-page="/AdminPage/AKoiFish/ViewKoi" class="btn btn-secondary">Hủy</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

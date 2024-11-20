@@ -1,21 +1,38 @@
 ﻿using AuctionKoi.Repositories.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AuctionKoi.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<List<User>> Users();
-        Boolean DelUser(int id);
-        Boolean DelUser(User user);
+        // Lấy danh sách tất cả người dùng
+        Task<List<User>> GetAllUsersAsync();
+
+        // Thêm người dùng
+        Task AddUserAsync(User user);
+
+        // Thêm khách hàng
+        Task AddCustomerAsync(string username, string fullName, string email, string phoneNumber, string password, int roleID);
+
+        // Đăng ký người dùng
         Task RegisterUserAsync(string fullName, string email, string phoneNumber, string password);
-        Boolean UpdateUser(User user);
-        Task<User> GetUserById(int id);
-        User Authenticate(string Email, string PasswordHash);
+
+        // Xóa người dùng theo ID
+        Task<bool> DeleteUserAsync(int id);
+
+        // Lấy người dùng theo ID
+        Task<User?> GetUserByIdAsync(int id);
+
+        // Cập nhật thông tin người dùng
+        Task<bool> UpdateUserAsync(User user);
+
+        // Xác thực người dùng
+        User Authenticate(string email, string password);
+
+        // Kiểm tra thông tin người dùng
         Task<bool> ValidateUserAsync(string email, string password);
+      
+
     }
 }

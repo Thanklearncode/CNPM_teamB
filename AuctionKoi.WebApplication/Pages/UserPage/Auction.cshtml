@@ -1,0 +1,178 @@
+﻿@page
+@model AuctionKoi.WebApplication.Pages.UserPage.AuctionModel
+@using AuctionKoi.Services.Interfaces
+@inject iAuctionService _auctionService
+@{
+    Layout = "~/Pages/Shared/_LayoutUserPage.cshtml";
+}
+
+
+@section PageSpecificStyles {
+    <link rel="stylesheet" href="~/css/UserPageAuction.css" asp-append-version="true" />
+}
+
+@{
+    // var auctionMethod = (string)ViewData["SelectedAuctionMethod"] ?? "All";
+    // var searchKeyword = (string)ViewData["SearchKeyword"] ?? "";
+    var activeAuctions = _auctionService.GetActiveAuctions();
+}
+
+<body>
+    @if (!string.IsNullOrEmpty(Request.Query["message"]))
+    {
+        <div class="alert alert-success">
+            @Request.Query["message"]
+        </div>
+    }
+    <!-- Tiêu đề đấu giá -->
+    <section class="py-16">
+        <div class="tieudeaution flex">
+            <div class="text_more text-black w-1/2">
+                <div class="auction"><h1>Auction</h1></div><br>
+                <h2>Welcome to the Kodama Koi Farm Auction!</h2><br>
+                <span>
+                    Create an account to start bidding in koi auctions. All bids are final.<br>
+                    Shipping cost is always charged separately after purchase, <br>
+                    unless otherwise mentioned as a free shipping option in promotion.<br>
+                    If you have shipping questions, you can contact us before checkout<br>
+                    or read this shipping FAQ for more information.<br>
+                </span>
+                If you have any questions you may contact us at <div class="email">info@kodamakoifarm.com</div>
+            </div>
+            <div class="anhca_ w-1/2">
+                <img src="../anh/bg-koi.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="daugia">
+            <div class="wel border-4 text-2xl text-center">Enjoy bidding with many beautiful koi fish</div>
+            <div class="dai text-center">
+                We have been working hard behind the scenes to build an even better auction and koi buying system.
+                You can now search through our online inventory by breeder, size, price, variety, gender to help you find the right koi.
+                Our site is now mobile-friendly and ready for you to buy or bid on koi to add to your pond.
+            </div>
+        </div>
+    </section>
+
+    <!-- Phần bộ lọc và thanh tìm kiếm -->
+    <section class="filter-search py-4">
+        <div class="flex justify-center space-x-4">
+            <!-- Dropdown phương thức đấu giá -->
+           <select id="auctionMethod" name="AuctionMethod" onchange="applyFilter()">
+                <option value="All" selected="@(Model.AuctionMethod == "All")">All Methods</option>
+                <option value="Fixed Price" selected="@(Model.AuctionMethod == "Fixed Price")">Fixed Price</option>
+                <option value="One-Time Bid" selected="@(Model.AuctionMethod == "One-Time Bid")">One-Time Bid</option>
+                <option value="Ascending Bid" selected="@(Model.AuctionMethod == "Ascending Bid")">Ascending Bid</option>
+                <option value="Descending Bid" selected="@(Model.AuctionMethod == "Descending Bid")">Descending Bid</option>
+
+            </select>
+
+            <input type="text" id="searchKeyword" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search Koi Fish..." />
+            <button onclick="applyFilter()" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                Search
+            </button>
+        </div>
+    </section>
+
+    <!-- Danh sách cá đấu giá với đồng hồ đếm ngược -->
+    <section class="auction-list py-16">
+        <div class="flex flex-wrap justify-center space-x-8">
+            @if (Model.ActiveAuctions.Any())
+            {
+                @foreach (var auction in Model.ActiveAuctions)
+                {
+                    <div class="auction-card relative">
+                        <!-- Thông tin cá -->
+                        <img src="@auction.Koi?.ImageUrl" alt="Koi Image">
+                        <p><b>@auction.Koi?.KoiName</b></p>
+                        <p>Starting Bid: $@auction.StartPrice</p>
+                        <p>End Time: @auction.EndTime?.ToString("yyyy-MM-dd HH:mm")</p>
+
+                        <!-- Đồng hồ đếm ngược -->
+                        <div class="countdown flex justify-center space-x-4" id="countdown-@auction.AuctionID">
+                            <!-- Nội dung đồng hồ sẽ được cập nhật qua JavaScript -->
+                        </div>
+
+                        <!-- Nút đấu giá -->
+                        <a href="/UserPage/BID?AuctionID=@auction.AuctionID">
+                            <button class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                                Bid Now
+                            </button>
+                        </a>
+
+                    </div>
+
+                    <!-- JavaScript khởi động đồng hồ đếm ngược -->
+                    <script>
+                        startCountdown("@auction.AuctionID", "@($"{auction.EndTime:yyyy-MM-ddTHH:mm:ss}")");
+                    </script>
+                }
+            }
+            else
+            {
+                <p>No auctions found for the selected criteria.</p>
+            }
+        </div>
+    </section>
+
+
+    <script>
+        // Hàm đếm ngược đồng hồ
+        function startCountdown(id, endTime) {
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = new Date(endTime).getTime() - now;
+
+                if (distance < 0) {
+                    document.getElementById("countdown-" + id).innerHTML = "<div class='number'>Auction Ended</div>";
+                    clearInterval(timer);
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown-" + id).innerHTML = `
+                        <div class="column flex flex-col items-center">
+                            <div class="number">${hours}</div>
+                            <div class="label">hours</div>
+                        </div>
+                        <div class="column flex flex-col items-center">
+                            <div class="number">${minutes}</div>
+                            <div class="label">minutes</div>
+                        </div>
+                        <div class="column flex flex-col items-center">
+                            <div class="number">${seconds}</div>
+                            <div class="label">seconds</div>
+                        </div>`;
+            }
+
+            const timer = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        }
+    </script>
+
+
+    <script>
+        let typingTimer; // Bộ hẹn giờ cho việc nhập liệu
+        const typingInterval = 5000; // Khoảng thời gian dừng (500ms)
+
+        function applyFilter() {
+            const auctionMethod = document.getElementById('auctionMethod').value;
+            const searchKeyword = document.getElementById('searchKeyword').value;
+
+            // Chuyển hướng với query string
+            window.location.href = `?AuctionMethod=${auctionMethod}&SearchKeyword=${searchKeyword}`;
+        }
+
+        document.getElementById('searchKeyword').addEventListener('keyup', function () {
+            clearTimeout(typingTimer); // Xóa bộ hẹn giờ cũ
+            typingTimer = setTimeout(applyFilter, typingInterval); // Đặt bộ hẹn giờ mới
+        });
+
+
+    </script>
+</body>
+
+

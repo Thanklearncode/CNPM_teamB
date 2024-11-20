@@ -1,0 +1,77 @@
+﻿@page "{id:int}"
+@model AuctionKoi.WebApplication.Pages.AdminPage.ABid.EditAuctionModel
+@{
+    Layout = "~/Pages/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="page-header">
+            <h2 class="pageheader-title">Sửa Thông Tin Đấu Giá</h2>
+        </div>
+
+        <div class="card">
+            <h5 class="card-header">Chỉnh sửa thông tin</h5>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="Auction.AuctionID" value="@Model.Auction.AuctionID" />
+
+                    <div class="form-group">
+                        <label for="KoiID">Mã Cá Koi</label>
+                        <input type="number" name="Auction.KoiID" id="KoiID" class="form-control" value="@Model.Auction.KoiID" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="StartPrice">Giá Khởi Điểm</label>
+                        <input type="number" name="Auction.StartPrice" id="StartPrice" class="form-control" value="@Model.Auction.StartPrice" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="StartTime">Thời Gian Bắt Đầu</label>
+                        <input type="datetime-local" name="Auction.StartTime" id="StartTime" class="form-control"
+                               value="@(Model.Auction.StartTime.HasValue ? Model.Auction.StartTime.Value.ToString("yyyy-MM-ddTHH:mm") : "")" required />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="EndTime">Thời Gian Kết Thúc</label>
+                        <input type="datetime-local" name="Auction.EndTime" id="EndTime" class="form-control"
+                               value="@(Model.Auction.EndTime.HasValue ? Model.Auction.EndTime.Value.ToString("yyyy-MM-ddTHH:mm") : "")" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Status">Trạng Thái</label>
+                        <select name="Auction.Status" id="Status" class="form-control">
+                            <option value="Open" selected="@(Model.Auction.Status != null && Model.Auction.Status == "Open" ? "selected" : null)">Open</option>
+                            <option value="Completed" selected="@(Model.Auction.Status != null && Model.Auction.Status == "Completed" ? "selected" : null)">Completed</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CurrentPrice">Giá Hiện Tại</label>
+                        <input type="number" name="Auction.CurrentPrice" id="CurrentPrice" class="form-control" value="@Model.Auction.CurrentPrice" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="WinnerId">Mã Người Thắng</label>
+                        <input type="number" name="Auction.WinnerId" id="WinnerId" class="form-control" value="@Model.Auction.WinnerId" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Method">Phương Thức Đấu Giá</label>
+                        <select name="Auction.Method" id="Method" class="form-control">
+                            <option value="Fixed Price" selected="@(Model.Auction.Method == "Fixed Price" ? "selected" : null)">Fixed Price</option>
+                            <option value="One-Time Bid" selected="@(Model.Auction.Method == "One-Time Bid" ? "selected" : null)">One-Time Bid</option>
+                            <option value="Ascending Bid" selected="@(Model.Auction.Method == "Ascending Bid" ? "selected" : null)">Ascending Bid</option>
+                            <option value="Descending Bid" selected="@(Model.Auction.Method == "Descending Bid" ? "selected" : null)">Descending Bid</option>
+
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

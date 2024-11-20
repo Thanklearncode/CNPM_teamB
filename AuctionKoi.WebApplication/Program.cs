@@ -1,8 +1,11 @@
+using AuctionKoi.Repositories;
 using AuctionKoi.Repositories.Entities;
 using AuctionKoi.Repositories.Interfaces;
 using AuctionKoi.Repositories.Repositories;
+using AuctionKoi.Services;
 using AuctionKoi.Services.Interfaces;
 using AuctionKoi.Services.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,10 +20,15 @@ builder.Services.AddDbContext<AuctionKoiContext>(options => { options.UseSqlServ
 //DI Repository
 builder.Services.AddScoped<iAuctionRepository, AuctionRepository>(); 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IKoiFishRepository, KoiFishRepository>();
+builder.Services.AddScoped<IBidRepository, BidRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 //DI Service
 builder.Services.AddScoped<iAuctionService, AuctionService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<IKoiFishService, KoiFishService>();
+builder.Services.AddScoped<IBidService, BidService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -38,6 +46,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
+app.UseAuthentication();
 
 app.UseRouting();
 
