@@ -1,5 +1,6 @@
 ﻿using AuctionKoi.Repositories.Entities;
 using AuctionKoi.Repositories.Interfaces;
+using AuctionKoi.Repositories.Repositories;
 using AuctionKoi.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -108,5 +109,28 @@ namespace AuctionKoi.Services.Services
 
             await _repository.AddUserAsync(newUser);
         }
+        public async Task LogoutUserAsync(int userId)
+        {
+            await _repository.LogoutUserAsync(userId);
+        }
+
+        public async Task<bool> ResetPasswordAsync(string email, string newPassword)
+        {
+            // Step 1: Get user by email
+            var user = await _repository.GetUserByEmailAsync(email);
+            if (user == null)
+                return false;
+
+            // Step 2: Update password
+            return await _repository.UpdatePasswordAsync(user, newPassword);
+        }
+        public async Task<User> GetUserByEmailAndPhoneAsync(string email, string phoneNumber)
+        {
+            return await _repository.GetUserByEmailAndPhoneAsync(email, phoneNumber);
+        }
+
     }
+
+
+
 }

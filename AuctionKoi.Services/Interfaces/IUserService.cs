@@ -32,7 +32,9 @@ namespace AuctionKoi.Services.Interfaces
 
         // Kiểm tra thông tin người dùng
         Task<bool> ValidateUserAsync(string email, string password);
-      
+        Task LogoutUserAsync(int userId);
+        Task<bool> ResetPasswordAsync(string email, string newPassword);
+        Task<User> GetUserByEmailAndPhoneAsync(string email, string phoneNumber);
 
     }
 }

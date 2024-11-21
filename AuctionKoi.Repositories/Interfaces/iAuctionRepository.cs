@@ -24,5 +24,6 @@ namespace AuctionKoi.Repositories.Interfaces
         Task<bool> DeleteAuctionAsync(int auctionId);
         Task<bool> CheckKoiExistsInAuctionAsync(int koiId);
         Task<List<Bid>> GetAllBidsAsync();
+
     }
 }
