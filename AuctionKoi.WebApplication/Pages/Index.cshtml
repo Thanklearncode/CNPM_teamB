@@ -4,35 +4,75 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
+<!doctype html>
 <!-- Hero Section -->
 <section class="hero-section flex items-center justify-center text-white">
     <div class="text-center">
         <h1 class="text-6xl font-bold mb-4 text-yellow-400">Premium Koi Auctions</h1>
-        <p class="text-2xl mb-8">Discover the finest Koi fish from top Japanese breeders</p>
-        <button class="gradient-button px-8 py-4 rounded-full text-white text-lg font-medium shadow-lg">
-            View Auctions
-        </button>
+        <p class="text-2xl mb-8">Khám phá những chú cá Koi tuyệt vời nhất từ ​​những nhà lai tạo hàng đầu Nhật Bản</p>
+        <a href="../UserPage/Auction">
+            <button class="gradient-button px-8 py-4 rounded-full text-white text-lg font-medium shadow-lg"
+                    onclick="showLoginAlert(event)">
+                Xem đấu giá
+            </button>
+
+
+        </a>
     </div>
 </section>
 
 <!-- Featured Brands -->
 <section class="py-16 bg-white">
     <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Featured Breeders</h2>
-        <p class="text-center text-gray-600 mb-12">Expert breeders with generations of experience</p>
+        <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Nhà lai tạo nổi bật</h2>
+        <p class="text-center text-gray-600 mb-12">Những người chăn nuôi chuyên nghiệp với nhiều thế hệ kinh nghiệm</p>
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Add your brand cards here -->
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/dainichi-logo.png" alt="Dainichi" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Dainichi</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/izumiya-logo.png" alt="Sakai" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">izumiya</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/marudo-logo.png" alt="Marudo" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Marudo</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/kanno-logo.png" alt="Kanno" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Kanno</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/marushin-logo.png" alt="Dainichi" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Marushin</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/marujyu-logo.png" alt="Sakai" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">marujyu</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/omosako-logo.png" alt="Marudo" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Omosako</h3>
+            </div>
+            <div class="brand-card rounded-xl shadow-lg p-8 text-center">
+                <img src="../imgs/shinoda-logo.png" alt="Kanno" class="mx-auto mb-4 rounded-full border-4 border-yellow-400">
+                <h3 class="text-xl font-semibold text-gray-800">Shinoda</h3>
+            </div>
         </div>
     </div>
-</section>
+    <script>
+        var isLoggedIn = @((User.Identity.IsAuthenticated) ? "true" : "false");
 
-<!-- Live Auctions -->
-<section class="py-16 bg-gradient-to-b from-white to-gray-100">
-    <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-center mb-4 text-gray-800">Live Auctions</h2>
-        <p class="text-center text-gray-600 mb-12">Bid on exceptional Koi specimens</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Add your auction cards here -->
-        </div>
-    </div>
+        function showLoginAlert(event) {
+            // Ngăn hành động mặc định
+            event.preventDefault();
+
+            // Kiểm tra trạng thái đăng nhập
+            if (isLoggedIn !== "true") {
+                alert("Bạn cần đăng nhập để xem đấu giá!");
+            }
+        }
+    </script>
+
 </section>

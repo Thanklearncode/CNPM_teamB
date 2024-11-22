@@ -6,31 +6,35 @@
     <title>KoiAuction - Premium Koi Fish Auctions</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    @RenderSection("PageSpecificStyles", required: false)
+
 </head>
+
+
 <body class="bg-gray-50">
+   
     <!-- Top Navigation Bar -->
     <nav class="fixed w-full z-50 nav-menu text-white">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <img src="~/imgs/dainichi-logo.png" alt="KoiAuction Logo" class="h-10 rounded-full border-2 border-yellow-400">
+                    <img src="~/imgs/image.png" alt="KoiAuction Logo" class="h-10 rounded-full border-2 border-yellow-400">
                     <span class="ml-3 text-2xl font-bold text-white">KoiAuction</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="menu-item text-lg font-medium">Home</a>
-                    <a href="#" class="menu-item text-lg font-medium">Auctions</a>
-                    <a href="#" class="menu-item text-lg font-medium">About</a>
-                    <a href="#" class="menu-item text-lg font-medium">Contact</a>
+                    <a href="../Index" class="menu-item text-lg font-medium">Trang chủ</a>
+                    <a href="../UserPage/Auction" onclick="return checkLogin();" class="menu-item text-lg font-medium">Đấu giá</a>
+                    <a href="../GuestPage/GuestAbout" class="menu-item text-lg font-medium">Thông tin</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="../Login/ThongBao">
+                    <a href="../Login/Login">
                         <button class="px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-gray-800 transition-all">
-                            Login
+                            Đăng nhập
                         </button>
                     </a>
                     <a href="../Register/Register">
                         <button class="px-6 py-2 bg-yellow-500 text-gray-800 rounded-full hover:bg-yellow-400 transition-all">
-                            Register
+                            Đăng ký
                         </button>
                     </a>
                 </div>
@@ -41,6 +45,7 @@
     <!-- Main Content -->
     <main>
         @RenderBody()
+       
     </main>
 
     <!-- Footer -->
@@ -85,6 +90,15 @@
         </div>
     </footer>
 
-    @RenderSection("Scripts", required: false)
+    <script>
+        function checkLogin() {
+            const isLoggedIn = false; // Thay giá trị này bằng trạng thái đăng nhập thực tế
+            if (!isLoggedIn) {
+                alert("Bạn phải đăng nhập để xem Auctions.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>

@@ -26,32 +26,32 @@
     }
     <!-- Tiêu đề đấu giá -->
     <section class="py-16">
-        <div class="tieudeaution flex">
-            <div class="text_more text-black w-1/2">
-                <div class="auction"><h1>Auction</h1></div><br>
-                <h2>Welcome to the Kodama Koi Farm Auction!</h2><br>
-                <span>
-                    Create an account to start bidding in koi auctions. All bids are final.<br>
-                    Shipping cost is always charged separately after purchase, <br>
-                    unless otherwise mentioned as a free shipping option in promotion.<br>
-                    If you have shipping questions, you can contact us before checkout<br>
-                    or read this shipping FAQ for more information.<br>
-                </span>
-                If you have any questions you may contact us at <div class="email">info@kodamakoifarm.com</div>
+        <div class="flex flex-wrap items-center text-white rounded-lg shadow-lg p-8" style="background-color: #f1c40f;">
+            <!-- Phần giới thiệu -->
+            <div class="w-full md:w-1/2 text-center md:text-left">
+                <h1 class="text-4xl font-extrabold mb-4">Chào mừng đến với Ngôi nhà Đấu giá Koi!</h1>
+                <p class="text-lg leading-relaxed mb-4">
+                    Hòa mình vào thế giới đấu giá cá Koi cao cấp, nơi những người yêu thích và các nhà lai tạo kết nối để mang những chú cá Koi Nhật Bản đẹp nhất đến hồ cá của bạn.
+                    Mỗi cuộc đấu giá là cơ hội để bạn sở hữu một kiệt tác được lai tạo bằng truyền thống và sự tận tâm.
+                </p>
+                <p class="text-lg leading-relaxed">
+                    Tham gia ngay hôm nay để bắt đầu đấu giá và trở thành một phần của cộng đồng đầy sôi động.
+                    Trải nghiệm niềm vui khi đấu giá những bộ sưu tập cá Koi độc quyền và để chúng tôi giúp bạn tìm thấy sự bổ sung hoàn hảo cho hồ cá của mình.
+                </p>
+                <p class="text-sm mt-4">
+                    Cần trợ giúp? Liên hệ với chúng tôi qua
+                    <a href="mailto:support@koiauction.com" class="underline text-blue-800 hover:text-white">support@koiauction.com</a>
+                    hoặc khám phá <a href="#" class="underline text-blue-800 hover:text-white">Câu hỏi thường gặp về Vận chuyển</a>.
+                </p>
             </div>
-            <div class="anhca_ w-1/2">
-                <img src="../anh/bg-koi.jpg" alt="">
+
+            <!-- Phần hình ảnh -->
+            <div class="w-full md:w-1/2 mt-8 md:mt-0 flex justify-center">
+                <img src="../imgs/a3.jpg" alt="Hình ảnh cá Koi" class="rounded-lg shadow-lg max-w-full h-auto">
             </div>
         </div>
 
-        <div class="daugia">
-            <div class="wel border-4 text-2xl text-center">Enjoy bidding with many beautiful koi fish</div>
-            <div class="dai text-center">
-                We have been working hard behind the scenes to build an even better auction and koi buying system.
-                You can now search through our online inventory by breeder, size, price, variety, gender to help you find the right koi.
-                Our site is now mobile-friendly and ready for you to buy or bid on koi to add to your pond.
-            </div>
-        </div>
+
     </section>
 
     <!-- Phần bộ lọc và thanh tìm kiếm -->
@@ -60,16 +60,16 @@
             <!-- Dropdown phương thức đấu giá -->
            <select id="auctionMethod" name="AuctionMethod" onchange="applyFilter()">
                 <option value="All" selected="@(Model.AuctionMethod == "All")">All Methods</option>
-                <option value="Fixed Price" selected="@(Model.AuctionMethod == "Fixed Price")">Fixed Price</option>
-                <option value="One-Time Bid" selected="@(Model.AuctionMethod == "One-Time Bid")">One-Time Bid</option>
-                <option value="Ascending Bid" selected="@(Model.AuctionMethod == "Ascending Bid")">Ascending Bid</option>
-                <option value="Descending Bid" selected="@(Model.AuctionMethod == "Descending Bid")">Descending Bid</option>
+                <option value="Fixed Price" selected="@(Model.AuctionMethod == "Fixed Price")">Mua đứt</option>
+                <option value="One-Time Bid" selected="@(Model.AuctionMethod == "One-Time Bid")">Trả giá một lần</option>
+                <option value="Ascending Bid" selected="@(Model.AuctionMethod == "Ascending Bid")">Trả giá tăng</option>
+                <option value="Descending Bid" selected="@(Model.AuctionMethod == "Descending Bid")">Trả giá xuống</option>
 
             </select>
 
             <input type="text" id="searchKeyword" name="SearchKeyword" value="@Model.SearchKeyword" placeholder="Search Koi Fish..." />
             <button onclick="applyFilter()" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
-                Search
+                Tìm kiếm
             </button>
         </div>
     </section>
@@ -85,8 +85,8 @@
                         <!-- Thông tin cá -->
                         <img src="@auction.Koi?.ImageUrl" alt="Koi Image">
                         <p><b>@auction.Koi?.KoiName</b></p>
-                        <p>Starting Bid: $@auction.StartPrice</p>
-                        <p>End Time: @auction.EndTime?.ToString("yyyy-MM-dd HH:mm")</p>
+                        <p>Giá khởi điểm: $@auction.StartPrice</p>
+                        <p>Thời gian kết thúc: @auction.EndTime?.ToString("yyyy-MM-dd HH:mm")</p>
 
                         <!-- Đồng hồ đếm ngược -->
                         <div class="countdown flex justify-center space-x-4" id="countdown-@auction.AuctionID">
@@ -96,7 +96,7 @@
                         <!-- Nút đấu giá -->
                         <a href="/UserPage/BID?AuctionID=@auction.AuctionID">
                             <button class="bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out">
-                                Bid Now
+                                Đấu giá ngay 
                             </button>
                         </a>
 

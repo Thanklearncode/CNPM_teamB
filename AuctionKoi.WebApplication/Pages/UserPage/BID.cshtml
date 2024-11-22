@@ -31,12 +31,12 @@
             <!-- Thông tin chi tiết -->
             <div>
                 <h1 class="text-3xl font-bold mb-4">@Model.Auction.Koi?.KoiName</h1>
-                <p class="text-gray-600"><strong>Starting Price:</strong> $@Model.Auction.StartPrice</p>
-                <p class="text-gray-600"><strong>Current Price:</strong> $@Model.Auction.CurrentPrice</p>
-                <p class="text-gray-600"><strong>Method:</strong> @Model.Auction.Method</p>
-                <p class="text-gray-600"><strong>Breed:</strong> @Model.Auction.Koi?.Breed</p>
-                <p class="text-gray-600"><strong>Age:</strong> @Model.Auction.Koi?.Age years</p>
-                <p class="text-gray-600"><strong>Length:</strong> @Model.Auction.Koi?.Length cm</p>
+                <p class="text-gray-600"><strong>Giá khởi điểm:</strong> $@Model.Auction.StartPrice</p>
+                <p class="text-gray-600"><strong>Giá hiện tại:</strong> $@Model.Auction.CurrentPrice</p>
+                <p class="text-gray-600"><strong>Loại đấu giá:</strong> @Model.Auction.Method</p>
+                <p class="text-gray-600"><strong>Người nuôi:</strong> @Model.Auction.Koi?.Breed</p>
+                <p class="text-gray-600"><strong>Tuổi:</strong> @Model.Auction.Koi?.Age years</p>
+                <p class="text-gray-600"><strong>Chiểu dài:</strong> @Model.Auction.Koi?.Length cm</p>
 
                 <!-- Các nút tương tác -->
                 <div class="mt-6">
@@ -46,7 +46,7 @@
                             <input type="hidden" name="AuctionId" value="@Model.Auction.AuctionID" />
                             <button type="submit"
                                     class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg">
-                                Buy Now for $@Model.Auction.StartPrice
+                                Mua ngay với $@Model.Auction.StartPrice
                             </button>
                         </form>
                     }
@@ -60,7 +60,7 @@
                                    required class="w-full px-4 py-2 border rounded-lg mt-2">
                             <button type="submit"
                                     class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg mt-4">
-                                Place Bid
+                                Đặt cược
                             </button>
                         </form>
                     }
@@ -70,7 +70,7 @@
                             <input type="hidden" name="AuctionId" value="@Model.Auction.AuctionID" />
                             <button type="submit"
                                     class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg">
-                                Accept Current Price
+                                Mua ngay
                             </button>
                         </form>
                     }
