@@ -22,7 +22,7 @@
 <section class="container mx-auto my-8 px-4">
     @if (Model.Auction != null)
     {
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white rounded-lg shadow-lg p-6">
             <!-- Hình ảnh cá Koi -->
             <div class="flex justify-center items-center">
                 <img src="@Model.Auction.Koi?.ImageUrl" alt="Koi Image" class="rounded-lg shadow-lg max-w-full">
@@ -36,7 +36,13 @@
                 <p class="text-gray-600"><strong>Loại đấu giá:</strong> @Model.Auction.Method</p>
                 <p class="text-gray-600"><strong>Người nuôi:</strong> @Model.Auction.Koi?.Breed</p>
                 <p class="text-gray-600"><strong>Tuổi:</strong> @Model.Auction.Koi?.Age years</p>
-                <p class="text-gray-600"><strong>Chiểu dài:</strong> @Model.Auction.Koi?.Length cm</p>
+                <p class="text-gray-600"><strong>Chiều dài:</strong> @Model.Auction.Koi?.Length cm</p>
+
+                <!-- Đồng hồ đếm ngược -->
+                <div class="mt-4">
+                    <p class="text-gray-600"><strong>Thời gian còn lại:</strong></p>
+                    <div id="countdown" class="text-xl font-semibold text-red-600"></div>
+                </div>
 
                 <!-- Các nút tương tác -->
                 <div class="mt-6">
@@ -83,4 +89,36 @@
         <p class="text-red-500">Auction not found or unavailable.</p>
     }
 </section>
+
+@section Scripts {
+    <script>
+        const auctionEndTimeString = '@Model.Auction.EndTime?.ToString("yyyy-MM-dd HH:mm")'; // Chuỗi thời gian
+        console.log("Thời gian kết thúc (chuỗi):", auctionEndTimeString);
+
+        // Chuyển đổi chuỗi thành đối tượng Date
+        const auctionEndTime = new Date(auctionEndTimeString.replace(' ', 'T')); // Thay khoảng trắng bằng 'T' để JavaScript hiểu
+        console.log("Thời gian kết thúc (Date):", auctionEndTime);
+
+        function updateCountdown() {
+            const now = new Date().getTime(); // Thời gian hiện tại
+            const distance = auctionEndTime - now; // Tính khoảng cách
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown").innerHTML = `
+                            ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            } else {
+                document.getElementById("countdown").innerHTML = "Đã kết thúc!";
+            }
+        }
+
+        // Cập nhật mỗi giây
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+}
 

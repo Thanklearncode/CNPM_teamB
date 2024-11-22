@@ -132,7 +132,28 @@ namespace AuctionKoi.Repositories.Repositories
         {
             return await _dbContext.Bids.ToListAsync();
         }
-        
+        public void UpdateDescendingPrice()
+        {
+            // Lấy các đấu giá giảm giá (Descending Bid) đang mở
+            var descendingAuctions = _dbContext.Auctions
+                .Where(a => a.Method == "Descending Bid" && a.Status == "OPEN" && a.EndTime > DateTime.Now)
+                .ToList();
+
+            foreach (var auction in descendingAuctions)
+            {
+                // Giảm giá 5%
+                auction.CurrentPrice *= 0.95m;
+
+                // Đảm bảo giá không giảm xuống quá thấp
+                if (auction.CurrentPrice < 1) auction.CurrentPrice = 1;
+            }
+
+            // Lưu thay đổi vào cơ sở dữ liệu
+            _dbContext.SaveChanges();
+        }
+
+
+
     }
 
 }

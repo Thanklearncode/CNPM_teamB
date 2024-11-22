@@ -26,6 +26,7 @@ namespace AuctionKoi.Services.Interfaces
         Task<Auction?> GetAuctionByIdAsync(int id);
         Task<bool> CheckKoiExistsInAuctionAsync(int koiId);
         Task<List<Bid>> GetAllBidsAsync();
+        void ApplyDailyDiscount();
 
     }
 }

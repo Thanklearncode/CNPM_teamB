@@ -116,42 +116,6 @@
     </section>
 
 
-    <script>
-        // Hàm đếm ngược đồng hồ
-        function startCountdown(id, endTime) {
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = new Date(endTime).getTime() - now;
-
-                if (distance < 0) {
-                    document.getElementById("countdown-" + id).innerHTML = "<div class='number'>Auction Ended</div>";
-                    clearInterval(timer);
-                    return;
-                }
-
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                document.getElementById("countdown-" + id).innerHTML = `
-                        <div class="column flex flex-col items-center">
-                            <div class="number">${hours}</div>
-                            <div class="label">hours</div>
-                        </div>
-                        <div class="column flex flex-col items-center">
-                            <div class="number">${minutes}</div>
-                            <div class="label">minutes</div>
-                        </div>
-                        <div class="column flex flex-col items-center">
-                            <div class="number">${seconds}</div>
-                            <div class="label">seconds</div>
-                        </div>`;
-            }
-
-            const timer = setInterval(updateCountdown, 1000);
-            updateCountdown();
-        }
-    </script>
 
 
     <script>

@@ -65,30 +65,31 @@ namespace AuctionKoi.Services.Services
 
         public bool FixedPricePurchase(int auctionId, int userId)
         {
-            // Lấy phiên đấu giá từ repository
             var auction = _auctionRepository.GetAuctionById(auctionId);
-            if (auction == null || auction.Status != "Open" || auction.EndTime <= DateTime.Now)
+
+            if (auction == null || auction.Status != "OPEN" || auction.EndTime <= DateTime.Now)
             {
-                // Trả về false nếu phiên đấu giá không khả dụng
-                return false;
+                return false; // Trả về false nếu phiên đấu giá không khả dụng
             }
 
-            // Cập nhật WinnerId và Status
+            if (auction.WinnerId != null)
+            {
+                return false; // Đã có người mua trước đó
+            }
+
             auction.WinnerId = userId;
-            auction.Status = "Closed";
+            auction.Status = "CLOSED"; // Đóng đấu giá
 
             try
             {
-                // Lưu thay đổi vào database
                 _auctionRepository.UpdateAuction(auction);
 
-                // Tạo một bản ghi giao dịch mới (nếu cần)
                 var transaction = new TransactionHistory
                 {
                     AuctionID = auctionId,
                     BuyerID = userId,
                     TransactionDate = DateTime.Now,
-                    TotalAmount = auction.StartPrice
+                    TotalAmount = auction.CurrentPrice
                 };
                 _auctionRepository.AddTransaction(transaction);
 
@@ -96,10 +97,10 @@ namespace AuctionKoi.Services.Services
             }
             catch (Exception ex)
             {
-                // Xử lý ngoại lệ nếu cập nhật thất bại
                 return false;
             }
         }
+
 
 
         public bool PlaceBid(int auctionId, decimal bidAmount, int userId)
@@ -124,13 +125,17 @@ namespace AuctionKoi.Services.Services
 
         public bool AcceptDescendingBid(int auctionId, int userId)
         {
+            // Lấy thông tin phiên đấu giá
             var auction = _auctionRepository.GetAuctionById(auctionId);
-            if (auction == null || auction.Status == "Completed")
+
+            if (auction == null || auction.Status != "OPEN" || auction.Method != "Descending Bid")
                 return false;
 
+            // Cập nhật thông tin đấu giá
             auction.WinnerId = userId;
-            auction.Status = "Completed";
+            auction.Status = "CLOSED"; // Đóng đấu giá
 
+            // Lưu giao dịch
             var transaction = new TransactionHistory
             {
                 AuctionID = auctionId,
@@ -138,10 +143,19 @@ namespace AuctionKoi.Services.Services
                 TransactionDate = DateTime.Now,
                 TotalAmount = auction.CurrentPrice
             };
-            _auctionRepository.AddTransaction(transaction);
-            _auctionRepository.UpdateAuction(auction);
-            return true;
+
+            try
+            {
+                _auctionRepository.AddTransaction(transaction);
+                _auctionRepository.UpdateAuction(auction);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
         public async Task<List<Auction>> GetAllAuctionsAsync()
         {
             return await _auctionRepository.GetAllAuctionsAsync();
@@ -165,6 +179,9 @@ namespace AuctionKoi.Services.Services
         {
             return await _auctionRepository.GetAllBidsAsync();
         }
-
+        public void ApplyDailyDiscount()
+        {
+            _auctionRepository.UpdateDescendingPrice();
+        }
     }
 }

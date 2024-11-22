@@ -29,6 +29,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IKoiFishService, KoiFishService>();
 builder.Services.AddScoped<IBidService, BidService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddHostedService<DailyDiscountService>();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 

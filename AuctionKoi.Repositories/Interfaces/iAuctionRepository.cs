@@ -15,6 +15,7 @@ namespace AuctionKoi.Repositories.Interfaces
         Auction GetAuctionById(int auctionId);
         void UpdateAuction(Auction auction);
         void AddBid(Bid bid);
+        void UpdateDescendingPrice();
         void AddTransaction(TransactionHistory transaction);
         //thuoc ve adminpage:
         Task<List<Auction>> GetAllAuctionsAsync();
@@ -24,6 +25,7 @@ namespace AuctionKoi.Repositories.Interfaces
         Task<bool> DeleteAuctionAsync(int auctionId);
         Task<bool> CheckKoiExistsInAuctionAsync(int koiId);
         Task<List<Bid>> GetAllBidsAsync();
+        
 
     }
 }
