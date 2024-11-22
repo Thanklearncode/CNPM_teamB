@@ -1,154 +1,140 @@
-﻿CREATE DATABASE AuctionKoi;
+-- Tạo Database
+CREATE DATABASE AuctionKoi;
 GO
 
 USE AuctionKoi;
 GO
 
-CREATE TABLE Roles (
-    RoleID INT PRIMARY KEY IDENTITY(1,1),
-    RoleName NVARCHAR(50) NOT NULL
-);
-
+-- Tạo bảng Users
 CREATE TABLE Users (
-    UserID INT PRIMARY KEY IDENTITY(1,1),
+    UserID INT PRIMARY KEY,
     Username NVARCHAR(50) NOT NULL,
-    PasswordHash NVARCHAR(255) NOT NULL,
+    PasswordHash NVARCHAR(100),
     FullName NVARCHAR(100),
     Email NVARCHAR(100),
-    PhoneNumber NVARCHAR(20),
-    RoleID INT FOREIGN KEY REFERENCES Roles(RoleID),
-    CreatedAt DATETIME DEFAULT GETDATE()
+    PhoneNumber NVARCHAR(15),
+    RoleID INT,
+    CreatedAt DATETIME
 );
 
+-- Tạo bảng Roles
+CREATE TABLE Roles (
+    RoleID INT PRIMARY KEY,
+    RoleName NVARCHAR(50)
+);
+
+-- Tạo bảng KoiFish
 CREATE TABLE KoiFish (
-    KoiID INT PRIMARY KEY IDENTITY(1,1),
-    KoiName NVARCHAR(100) NOT NULL,
+    KoiID INT PRIMARY KEY,
+    KoiName NVARCHAR(50) NOT NULL,
     Age INT,
-    Breed NVARCHAR(100),
+    Breed NVARCHAR(50),
     Description NVARCHAR(255),
     ImageUrl NVARCHAR(255),
-    OwnerID INT FOREIGN KEY REFERENCES Users(UserID)
+    OwnerID INT,
+    Length FLOAT,
+    KoiSex NVARCHAR(10)
 );
 
+-- Tạo bảng Auctions
 CREATE TABLE Auctions (
-    AuctionID INT PRIMARY KEY IDENTITY(1,1),
-    KoiID INT FOREIGN KEY REFERENCES KoiFish(KoiID),
-    StartPrice DECIMAL(18,2),
+    AuctionID INT PRIMARY KEY,
+    KoiID INT,
+    StartPrice FLOAT,
     StartTime DATETIME,
     EndTime DATETIME,
-    Status NVARCHAR(50) -- Ví dụ: 'Upcoming', 'Ongoing', 'Completed'
+    Status NVARCHAR(50),
+    CurrentPrice FLOAT,
+    WinnerId INT NULL,
+    Method NVARCHAR(50),
+    FOREIGN KEY (KoiID) REFERENCES KoiFish(KoiID)
 );
 
-CREATE TABLE Bids (
-    BidID INT PRIMARY KEY IDENTITY(1,1),
-    AuctionID INT FOREIGN KEY REFERENCES Auctions(AuctionID),
-    UserID INT FOREIGN KEY REFERENCES Users(UserID),
-    BidAmount DECIMAL(18,2),
-    BidTime DATETIME DEFAULT GETDATE()
-);
-
-CREATE TABLE Employees (
-    EmployeeID INT PRIMARY KEY IDENTITY(1,1),
-    UserID INT FOREIGN KEY REFERENCES Users(UserID),
-    Position NVARCHAR(50), -- Ví dụ: 'Staff', 'Manager'
-    HireDate DATETIME DEFAULT GETDATE()
-);
-
+-- Tạo bảng TransactionHistory
 CREATE TABLE TransactionHistory (
-    TransactionID INT PRIMARY KEY IDENTITY(1,1),
-    AuctionID INT FOREIGN KEY REFERENCES Auctions(AuctionID),
-    BuyerID INT FOREIGN KEY REFERENCES Users(UserID),
-    TotalAmount DECIMAL(18,2),
-    TransactionDate DATETIME DEFAULT GETDATE()
+    TransactionID INT PRIMARY KEY,
+    AuctionID INT,
+    BuyerID INT,
+    TotalAmount FLOAT,
+    TransactionDate DATETIME,
+    AuctionType NVARCHAR(50),
+    FOREIGN KEY (AuctionID) REFERENCES Auctions(AuctionID)
 );
-ALTER TABLE KoiFish
-    ADD Length DECIMAL(5,2),
-	KoiSex NVARCHAR(10); 
 
+-- Tạo bảng Bids
+CREATE TABLE Bids (
+    BidID INT PRIMARY KEY,
+    AuctionID INT,
+    UserID INT,
+    BidAmount FLOAT,
+    BidTime DATETIME,
+    FOREIGN KEY (AuctionID) REFERENCES Auctions(AuctionID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
 
-INSERT INTO Roles (RoleName) VALUES 
-('Guest'),
-('Member'),
-('Koi Breeder'),
-('Staff'),
-('Manager');
+-- Tạo bảng Employees
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    UserID INT,
+    Position NVARCHAR(50),
+    HireDate DATETIME,
+    RoleID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+);
 
-SET IDENTITY_INSERT dbo.Auctions ON;
+-- Dữ liệu mẫu cho bảng Roles
+INSERT INTO Roles (RoleID, RoleName)
+VALUES
+(1, 'Guest'),
+(2, 'Member'),
+(3, 'Koi Breeder'),
+(4, 'Staff'),
+(5, 'Manager');
 
-INSERT INTO dbo.Auctions (AuctionID, KoiID, StartTime, EndTime, StartPrice, Status)
-VALUES 
-(1, 101, '2024-10-30 09:00:00', '2024-10-31 18:00:00', 5000000, 'Open'),
-(2, 102, '2024-10-29 10:00:00', '2024-11-01 17:00:00', 10000000, 'Closed'),
-(3, 103, '2024-10-28 11:00:00', '2024-10-30 16:00:00', 7500000, 'Open');
+-- Dữ liệu mẫu cho bảng Users
+INSERT INTO Users (UserID, Username, PasswordHash, FullName, Email, PhoneNumber, RoleID, CreatedAt)
+VALUES
+(501, 'thanh', NULL, 'Người dùng Một', 'user1@example.com', '0123456789', 2, '2024-10-30 15:26:56.840'),
+(502, 'user2', 'hashpassword2', 'Người dùng Hai', 'user2@example.com', '0987654321', 2, '2024-10-30 15:26:56.840'),
+(503, 'user3', 'hashpassword3', 'Người dùng Ba', 'user3@example.com', '1234567890', 2, '2024-10-30 15:26:56.840'),
+(506, 'admin', 'Tthvtcx159', 'Admin User', 'thanhh1005@gmail.com', '0976543210', 4, '2024-11-18 03:03:42.967');
 
-SET IDENTITY_INSERT dbo.Auctions OFF;
+-- Dữ liệu mẫu cho bảng KoiFish
+INSERT INTO [AuctionKoi].[dbo].[KoiFish] ([KoiName], [Age], [Breed], [Description], [ImageUrl], [OwnerID], [Length], [KoiSex])
+VALUES
+('Haruto', 3, 'Kohaku', 'Koi Kohaku co than trang voi diem do tuoi', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/11/w1028s005.jpg', 509, 45.00, 'Male'),
+('Aiko', 2, 'Sanke', 'Koi Sanke voi mau sac do trang va diem den', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/11/w1106a012.jpg', 501, 38.00, 'Female'),
+('Takashi', 1, 'Utsuri', 'Koi Utsuri co mau den lan voi trang', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/10/w1025s062-re.jpg', 502, 41.00, 'Male'),
+('Mizuki', 4, 'Bekko', 'Koi Bekko co hoa tiet trang den doc dao', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/04/w0411t023.jpg', 512, 39.00, 'Female'),
+('Kaoru', 5, 'Ginrin', 'Koi Ginrin anh bac long lanh trong nuoc', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/11/w1028s034.jpg', 513, 47.50, 'Male'),
+('Yumi', 2, 'Asagi', 'Koi Asagi co mau xanh noi bat', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/04/w0411t019.jpg', 514, 44.00, 'Female'),
+('Hikaru', 3, 'Chagoi', 'Koi Chagoi voi sac nau thanh lich', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/04/w0411t004.jpg', 515, 50.00, 'Male'),
+('Ren', 1, 'Koromo', 'Koi Koromo co hoa tiet doc dao voi mau xanh', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/10/w1025s060-re.jpg', 506, 43.00, 'Female'),
+('Rika', 6, 'Doitsu', 'Koi Doitsu voi than min khong vay', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/10/w1025s045-re.jpg', 505, 52.00, 'Female'),
+('Haru', 2, 'Kumonryu', 'Koi Kumonryu co hoa tiet den trang nhu rong', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/04/w0411t024.jpg', 504, 46.00, 'Male'),
+('Akane', 4, 'Benigoi', 'Koi Benigoi co sac do tuoi sang ruc ro', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/11/w1107m009-1.jpg', 503, 49.00, 'Female'),
+('Souta', 5, 'Shiro Utsuri', 'Koi Shiro Utsuri co than trang voi diem den noi bat', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/04/w0411t023.jpg', 502, 48.00, 'Male'),
+('Kenta', 1, 'Tancho', 'Koi Tancho co diem do noi bat tren dau', 'https://www.kodamakoifarm.com/wp-content/uploads/2024/11/w1106m005.jpg', 501, 40.50, 'Male');
 
-SET IDENTITY_INSERT dbo.KoiFish ON;
+-- Dữ liệu mẫu cho bảng Auctions
+INSERT INTO Auctions (AuctionID, KoiID, StartPrice, StartTime, EndTime, Status, CurrentPrice, WinnerId, Method)
+VALUES
+(7, 108, 3000000.00, '2024-11-01 10:00:00', '2024-11-30 18:00:00', 'OPEN', 3000000.00, NULL, 'Fixed Price'),
+(8, 109, 5000000.00, '2024-11-01 10:00:00', '2024-11-30 19:00:00', 'OPEN', NULL, 'One-Time Bid');
 
-INSERT INTO dbo.KoiFish (KoiId, KoiName, Age, Breed, Description, ImageUrl, OwnerId, Length, KoiSex)
-VALUES 
-(101, 'Satsuki', 3, 'Kohaku', 'Koi trắng với đốm đỏ đẹp mắt', 'http://example.com/satsuki.jpg', 501, 35.5, 'Female'),
-(102, 'Mizu', 4, 'Sanke', 'Koi ba màu nổi bật', 'http://example.com/mizu.jpg', 502, 40.2, 'Male'),
-(103, 'Hoshi', 2, 'Showa', 'Koi đen với đốm đỏ và trắng', 'http://example.com/hoshi.jpg', 503, 38.0, 'Female');
+-- Dữ liệu mẫu cho bảng TransactionHistory
+INSERT INTO TransactionHistory (TransactionID, AuctionID, BuyerID, TotalAmount, TransactionDate, AuctionType)
+VALUES
+(1, 7, 502, 3500000.00, '2024-11-18 02:16:33.240', NULL);
 
-SET IDENTITY_INSERT dbo.KoiFish OFF;
+-- Dữ liệu mẫu cho bảng Bids
+INSERT INTO Bids (BidID, AuctionID, UserID, BidAmount, BidTime)
+VALUES
+(5, 7, 502, 33333333.00, '2024-11-18 02:16:00.197'),
+(6, 8, 502, 44444444.00, '2024-11-18 02:16:29.033');
 
-SET IDENTITY_INSERT dbo.Users ON;
-INSERT INTO dbo.Users (UserId, Username, PasswordHash, FullName, Email, PhoneNumber, RoleId, CreatedAt)
-VALUES 
-(501, 'thanh', '1', 'Người dùng Một', 'user1@example.com', '0123456789', 1, GETDATE()),
-(502, 'user2', 'hashpassword2', 'Người dùng Hai', 'user2@example.com', '0987654321', 2, GETDATE()),
-(503, 'user3', 'hashpassword3', 'Người dùng Ba', 'user3@example.com', '0112233445', 1, GETDATE());
-SET IDENTITY_INSERT dbo.Users OFF;
-
-SET IDENTITY_INSERT dbo.Bids ON;
-
-INSERT INTO dbo.Bids (BidId, AuctionId, UserId, BidAmount, BidTime)
-VALUES 
-(1, 1, 501, 1100.00, GETDATE()),  
-(2, 1, 502, 1150.00, GETDATE()),  
-(3, 2, 503, 1600.00, GETDATE()),  
-(4, 3, 501, 2100.00, GETDATE());  
-
-SET IDENTITY_INSERT dbo.Bids OFF;
-
-
-SET IDENTITY_INSERT dbo.Employees ON;
-
-INSERT INTO dbo.Employees (EmployeeId, UserId, Position, HireDate)
-VALUES 
-(1, 501, 'Quản lý', GETDATE()),
-(2, 502, 'Nhân viên bán hàng', GETDATE());
-
-SET IDENTITY_INSERT dbo.Employees OFF;
-
-SET IDENTITY_INSERT dbo.TransactionHistory ON;
-INSERT INTO dbo.TransactionHistory (TransactionId, AuctionId, BuyerId, TotalAmount, TransactionDate)
-VALUES 
-(1, 1, 501, 1500.00, GETDATE()),
-(2, 2, 502, 2000.00, GETDATE()),
-(3, 3, 503, 1800.00, GETDATE());
-
-SET IDENTITY_INSERT dbo.TransactionHistory OFF;
--- 1. Thêm các trường mới vào bảng Auctions
-ALTER TABLE dbo.Auctions
-ADD CurrentPrice DECIMAL(18, 2) NULL,  -- Thêm trường để lưu giá hiện tại cho đấu giá lên hoặc đấu giá xuống
-    WinnerId INT NULL;                 -- Thêm trường để lưu ID người chiến thắng phiên đấu giá
-
--- 2. Thiết lập WinnerId làm khóa ngoại tham chiếu tới bảng Users
-ALTER TABLE dbo.Auctions
-ADD CONSTRAINT FK_Auctions_WinnerId FOREIGN KEY (WinnerId) REFERENCES dbo.Users(UserId);
-
--- 3. Thêm trường AuctionType vào bảng TransactionHistory
-ALTER TABLE dbo.TransactionHistory
-ADD AuctionType NVARCHAR(50) NULL;  -- Thêm trường để lưu loại đấu giá cho từng giao dịch
-
--- 4. Thêm CHECK CONSTRAINT cho trường Status trong bảng Auctions
-ALTER TABLE dbo.Auctions
-ADD CONSTRAINT CHK_Auctions_Status CHECK (Status IN ('OPEN', 'CLOSED', 'COMPLETED', 'CANCELLED'));
-
--- 5. Cập nhật giá trị mặc định cho CurrentPrice từ StartPrice
-UPDATE dbo.Auctions
-SET CurrentPrice = StartPrice
-WHERE CurrentPrice IS NULL;
-
+-- Dữ liệu mẫu cho bảng Employees
+INSERT INTO Employees (EmployeeID, UserID, Position, HireDate, RoleID)
+VALUES
+(1, 506, NULL, '2024-11-18 16:29:28.917', 4);
